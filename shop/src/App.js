@@ -9,10 +9,13 @@ import { Routes, Route, Link, useNavigate, Outlet } from 'react-router-dom'
 import Detail from './routes/Detail.js'
 import axios from 'axios'
 
+let Context1 = createContext()//state보관함의 역할임
 
 function App() {
 
   let [shoes, setShoes] = useState(data);
+  let [재고] = useState([10,11,12])
+
   let navigate = useNavigate();
   let [load, setLoad] = useState();
   let [clickCount, setClickCount] = useState(0)

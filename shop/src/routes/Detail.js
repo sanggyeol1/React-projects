@@ -17,6 +17,7 @@ function Detail(props){
   let 찾은상품 = props.shoes.find(function(x){
     return x.id == id
   })
+  
 
   //버튼을 누르면 state를 바꾸는 스위치만 조정하는 방식으로 하면 코드가 깔끔해짐!
   let [tab, setTab] = useState(0);
@@ -39,7 +40,6 @@ function Detail(props){
 
     return(
 <div className="container">
-  <div className="test">test this</div>
     {
       alert == true ?
       <div className='alert alert-warning'>
@@ -97,9 +97,8 @@ function Detail(props){
 
 function Tab(props){
 
-    return (<div>{[<div className="start end">1번 정보</div>,<div className="start end">2번 정보</div>,<div className="start end">3번 정보</div>][props.tab]}</div>)
+    return (<div>{[<div>1번정보</div>,<div>2번 정보</div>,<div>3번 정보</div>][props.tab]}</div>)
     
-
 }
 
 

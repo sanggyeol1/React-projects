@@ -5,7 +5,7 @@
 .nav-menu{
   text-decoration: none;
   color: black;
-}
+}ㅇㅇ
 .nav-menu:hover{
   text-shadow: 2px 2px 3px black;
   color: black;
@@ -19,9 +19,7 @@
   transition : 1s;
 }
 
-.test{
-  color : red
-}
+
 
 .main-bg{
   height : 300px;

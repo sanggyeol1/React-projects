@@ -1,11 +1,15 @@
-import { useEffect } from 'react'
+import { useContext, useEffect } from 'react'
 import { useState } from 'react';
 import { useParams } from "react-router-dom"
 import { useNavigate } from 'react-router-dom'
-import '../App.css';
-import React from 'react';
+import './../App.css';
+
+
+
 
 function Detail(props){
+
+
   // mount , update 시 html랜더링 이후 코드 실행(html로드가 빠름)
   //어렵거나 복잡한 연산, 서버에서 데이터 가져오는 작업, 타이머 등등
   let [입력값, 입력값변경] = useState('');

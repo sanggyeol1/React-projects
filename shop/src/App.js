@@ -1,4 +1,3 @@
-import React from 'react';
 import './App.css';
 import { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -7,9 +6,9 @@ import bg from './img/에어포스1.jpg'
 import {data} from './data.js';
 import { Routes, Route, Link, useNavigate, Outlet } from 'react-router-dom'
 import Detail from './routes/Detail.js'
+import Cart from './routes/Cart.js'
 import axios from 'axios'
 
-let Context1 = createContext()//state보관함의 역할임
 
 function App() {
 
@@ -31,10 +30,10 @@ function App() {
           <Nav className="me-auto">
             <Nav.Link className='nav-menu' onClick={()=>{ navigate('/') }}>Home</Nav.Link>
             <Nav.Link className='nav-menu' onClick={()=>{ navigate('/detail/0') }}>Detail</Nav.Link>
-            <Nav.Link className='nav-menu' onClick={()=>{ navigate('/event') }}>Event</Nav.Link>
             <Nav.Link className='nav-menu' onClick={()=>{ navigate('/about') }}>About</Nav.Link>
+            <Nav.Link className='nav-menu' onClick={()=>{ navigate('/cart') }}>장바구니</Nav.Link>
             <Nav.Link className='nav-menu' onClick={()=>{ navigate(-1) }}>뒤로</Nav.Link>
-            <Nav.Link className='nav-menu' onClick={()=>{ navigate(1) }}>앞으로</Nav.Link>
+      
           </Nav>
         </Container>
       </Navbar>
@@ -91,22 +90,19 @@ function App() {
             setLoad(false)
             setNoData(true)
           }
-          
-          
 
-        }}> 버튼 </button>
+        }}> 더보기 </button>
         </>
         }/>
 
-{/* url파라미터 */}
-        <Route path="*" element={<div>없는 페이지에요</div>} />
-        <Route path="/detail/:id" element={<Detail shoes={shoes}></Detail>} />
-        
 
-        <Route path="/event" element={<Event></Event>}>
-          <Route path="one" element={<div>첫 주문시 양배추즙 서비스</div>}></Route>
-          <Route path="two" element={<div>생일기념 쿠폰받기</div>}></Route>
-        </Route>
+        <Route path="*" element={<div>없는 페이지에요</div>} />
+        {/* url파라미터 */}
+        <Route path="/detail/:id" element={<Detail shoes={shoes}/>}/>
+        
+        <Route path="/cart" element={<Cart/>} />
+
+        
 
         <Route path="/about" element={<About/>}>
           <Route path="member" element={<div>멤버임</div>}></Route>
@@ -118,14 +114,6 @@ function App() {
   );
 }
 
-function Event(){
-  return(
-    <div>
-      <h4>오늘의 이벤트</h4>
-      <Outlet></Outlet>
-    </div>
-  )
-}
 
 function About(){
   return(

@@ -2,12 +2,15 @@ import { useContext, useEffect } from 'react'
 import { useState } from 'react';
 import { useParams } from "react-router-dom"
 import { useNavigate } from 'react-router-dom'
+import { addItem } from '../store';
+import { useDispatch, useSelector } from 'react-redux';
 import './../App.css';
 
 
 
 
 function Detail(props){
+    let dispatch = useDispatch()
 
 
   // mount , update 시 html랜더링 이후 코드 실행(html로드가 빠름)
@@ -69,20 +72,22 @@ function Detail(props){
       <input onChange={(e)=>{
     입력값변경(e.target.value)
    }}></input><br></br><br></br>   
-   <button className="btn btn-danger">주문하기</button><br></br><br></br>   
+   <button className="btn btn-danger" onClick={()=>{
+       dispatch(addItem( {id : 찾은상품.id, name : 찾은상품.title, count : 입력값} )) 
+   }}>주문하기</button><br></br><br></br>   
       
     </div>
   </div>
 
-  <ul class="nav nav-tabs">
-  <li class="nav-item">
-    <a class="nav-link"  href="#" onClick={()=>{setTab(0)}}>버튼1</a>
+  <ul className="nav nav-tabs">
+  <li className="nav-item">
+    <a className="nav-link"  href="#" onClick={()=>{setTab(0)}}>버튼1</a>
   </li>
-  <li class="nav-item">
-    <a class="nav-link" href="#" onClick={()=>{setTab(1)}}>버튼2</a>
+  <li className="nav-item">
+    <a className="nav-link" href="#" onClick={()=>{setTab(1)}}>버튼2</a>
   </li>
-  <li class="nav-item">
-    <a class="nav-link" href="#" onClick={()=>{setTab(2)}}>버튼3</a>
+  <li className="nav-item">
+    <a className="nav-link" href="#" onClick={()=>{setTab(2)}}>버튼3</a>
   </li>
   </ul>
 
@@ -101,8 +106,11 @@ function Detail(props){
 
 function Tab(props){
 
-    return (<div>{[<div>1번정보</div>,<div>2번 정보</div>,<div>3번 정보</div>][props.tab]}</div>)
-    
+    return (
+      <div className={`tab ${props.tab === 0 ? 'start' : 'end'}`}>
+        {[<div>1번 정보</div>,<div>2번 정보</div>,<div>3번 정보</div>][props.tab]}
+      </div>
+    )
 }
 
 
@@ -115,8 +123,6 @@ function Warn(props){
   )
 }
  
-
-
 
 
 export default Detail;

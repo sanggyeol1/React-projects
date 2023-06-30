@@ -4,13 +4,18 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Button, Navbar, Container, Nav, Row, Col } from 'react-bootstrap';
 import bg from './img/에어포스1.jpg'
 import {data} from './data.js';
-import { Routes, Route, Link, useNavigate, Outlet } from 'react-router-dom'
+import { Routes, Route, Link, useNavigate, Outlet, json } from 'react-router-dom'
 import Detail from './routes/Detail.js'
 import Cart from './routes/Cart.js'
 import axios from 'axios'
 
 
 function App() {
+
+  
+  let 꺼낸거 = localStorage.getItem('data')
+
+
 
   let [shoes, setShoes] = useState(data);
   let [재고] = useState([10,11,12])
@@ -29,7 +34,7 @@ function App() {
           <Navbar.Brand href="#home">ShoeShop</Navbar.Brand>
           <Nav className="me-auto">
             <Nav.Link className='nav-menu' onClick={()=>{ navigate('/') }}>Home</Nav.Link>
-            <Nav.Link className='nav-menu' onClick={()=>{ navigate('/detail/0') }}>Detail</Nav.Link>
+            <Nav.Link className='nav-menu' onClick={()=>{ navigate('/detail') }}>Detail</Nav.Link>
             <Nav.Link className='nav-menu' onClick={()=>{ navigate('/about') }}>About</Nav.Link>
             <Nav.Link className='nav-menu' onClick={()=>{ navigate('/cart') }}>장바구니</Nav.Link>
             <Nav.Link className='nav-menu' onClick={()=>{ navigate(-1) }}>뒤로</Nav.Link>

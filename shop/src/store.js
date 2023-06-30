@@ -23,7 +23,6 @@ let cart = createSlice({
             }else{
                 let plusNum  = parseInt(action.payload.count, 10)
                 let orNum = parseInt(state[번호].count)
-            
                 state[번호].count = orNum+plusNum
             }
         },

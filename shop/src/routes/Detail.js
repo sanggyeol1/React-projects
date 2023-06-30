@@ -24,10 +24,16 @@ function Detail(props){
   let 찾은상품 = props.shoes.find(function(x){
     return x.id == id
   })
-  
-
   //버튼을 누르면 state를 바꾸는 스위치만 조정하는 방식으로 하면 코드가 깔끔해짐!
   let [tab, setTab] = useState(0);
+  var watchedBox = []
+ 
+  var watchedItem = localStorage.setItem('watched', JSON.stringify(찾은상품))
+  var a = localStorage.getItem('watched')
+  var b = JSON.parse(a)
+  watchedBox.push(b)
+
+  
 
     
   useEffect(()=>{
@@ -79,6 +85,24 @@ function Detail(props){
     </div>
   </div>
 
+   
+  
+  {
+    watchedBox.map(function(a, i){
+      return(
+        <div>
+          <div>
+            <p>{watchedBox[i].title}</p>
+          </div>
+          <div>
+            <img src={watchedBox[i].src} width="20%" />
+          </div>
+        </div>
+      )
+    })
+  }
+  
+
   <ul className="nav nav-tabs">
   <li className="nav-item">
     <a className="nav-link"  href="#" onClick={()=>{setTab(0)}}>버튼1</a>
@@ -96,9 +120,15 @@ function Detail(props){
   }
   
 
-    <button onClick={()=>{navigate('/detail/0')}}>0</button>
-    <button onClick={()=>{navigate('/detail/1')}}>1</button>
-    <button onClick={()=>{navigate('/detail/2')}}>2</button>
+    <button onClick={()=>{
+      navigate('/detail/0')
+    }}>0</button>
+    <button onClick={()=>{
+      navigate('/detail/1')
+      }}>1</button>
+    <button onClick={()=>{
+      navigate('/detail/2')
+      }}>2</button>
 </div> 
   )
 }
@@ -122,6 +152,8 @@ function Warn(props){
     </div>
   )
 }
+
+
  
 
 

@@ -1,5 +1,5 @@
 import './App.css';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Button, Navbar, Container, Nav, Row, Col } from 'react-bootstrap';
 import bg from './img/에어포스1.jpg'
@@ -13,9 +13,9 @@ import axios from 'axios'
 function App() {
 
   
-  let 꺼낸거 = localStorage.getItem('data')
-
-
+  useEffect(()=>{
+    localStorage.setItem('watched', JSON.stringify( [] ))
+  },[])
 
   let [shoes, setShoes] = useState(data);
   let [재고] = useState([10,11,12])
@@ -24,6 +24,7 @@ function App() {
   let [load, setLoad] = useState();
   let [clickCount, setClickCount] = useState(0)
   let [noData, setNoData] = useState(false)
+
 
 
   return (
@@ -143,10 +144,12 @@ function Card(props){
     "https://codingapple1.github.io/shop/shoes8.jpg",
     "https://codingapple1.github.io/shop/shoes9.jpg",
   ]
-
+  let navigate = useNavigate()
   return(
     <Col sm>
-      <img src={shoeImage[props.i]} width="80%"></img>
+      <img onClick={()=>{
+        navigate('/detail/'+props.i)
+      }} src={shoeImage[props.i]} width="80%"></img>
       <h4>{props.shoes[props.i].title}</h4>
       <p>{props.shoes[props.i].content}</p>
       <p>{props.shoes[props.i].price}</p>

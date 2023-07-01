@@ -21,19 +21,30 @@ function Detail(props){
   let [count, setCount] = useState(0);
   let navigate = useNavigate();
   let {id} = useParams();
-  let 찾은상품 = props.shoes.find(function(x){
-    return x.id == id
-  })
+  let 찾은상품 = props.shoes.find(function(x){return x.id == id})
   //버튼을 누르면 state를 바꾸는 스위치만 조정하는 방식으로 하면 코드가 깔끔해짐!
   let [tab, setTab] = useState(0);
-  var watchedBox = []
- 
-  var watchedItem = localStorage.setItem('watched', JSON.stringify(찾은상품))
-  var a = localStorage.getItem('watched')
-  var b = JSON.parse(a)
-  watchedBox.push(b)
 
   
+
+  useEffect(()=>{
+    
+    let 꺼낸거 = localStorage.getItem('watched') 
+    꺼낸거 = JSON.parse(꺼낸거) || []
+    꺼낸거.push(찾은상품.id)
+    localStorage.setItem('watched', JSON.stringify(꺼낸거))
+  },[])
+  // let watchedBox = localStorage.setItem('watched', JSON.stringify( [] ))
+  //   localStorage.setItem('watched', JSON.stringify(찾은상품))
+  //   let 꺼낸거 = localStorage.getItem('watched')
+  //   꺼낸거 = JSON.parse(꺼낸거)
+  //   watchedBox.push(꺼낸거)
+  //   localStorage.setItem('watched', JSON.stringify(꺼낸거))
+
+
+
+
+
 
     
   useEffect(()=>{
@@ -85,22 +96,6 @@ function Detail(props){
     </div>
   </div>
 
-   
-  
-  {
-    watchedBox.map(function(a, i){
-      return(
-        <div>
-          <div>
-            <p>{watchedBox[i].title}</p>
-          </div>
-          <div>
-            <img src={watchedBox[i].src} width="20%" />
-          </div>
-        </div>
-      )
-    })
-  }
   
 
   <ul className="nav nav-tabs">
@@ -120,15 +115,7 @@ function Detail(props){
   }
   
 
-    <button onClick={()=>{
-      navigate('/detail/0')
-    }}>0</button>
-    <button onClick={()=>{
-      navigate('/detail/1')
-      }}>1</button>
-    <button onClick={()=>{
-      navigate('/detail/2')
-      }}>2</button>
+   
 </div> 
   )
 }

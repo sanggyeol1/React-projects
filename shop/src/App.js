@@ -8,22 +8,50 @@ import { Routes, Route, Link, useNavigate, Outlet, json } from 'react-router-dom
 import Detail from './routes/Detail.js'
 import Cart from './routes/Cart.js'
 import axios from 'axios'
+import { useQuery } from "react-query"
+
 
 
 function App() {
 
-  
   useEffect(()=>{
-    localStorage.setItem('watched', JSON.stringify( [] ))
+    let storedData = localStorage.getItem('watched')
+
+    if(!storedData){
+      localStorage.setItem('watched', JSON.stringify( [] ))
+    }//이미 값이 있으면 []를 추가하지 않음(새로고침 시 로컬스토리지 초기화 안댐)
+    
   },[])
+
+
+
+  let obj = {name : 'kiddm'}
+  localStorage.setItem('data', JSON.stringify(obj))//오브젝트 그냥 넣으면 깨짐 -> JSON을 이용해서 저장
+  let 꺼낸거 = localStorage.getItem('data')
+  //꺼낼때도JSON임 -> 꺼낸거.name 이런식으로 사용할 수 없음 -> 파싱을 해줌 -> 사용 가능
+
+
 
   let [shoes, setShoes] = useState(data);
   let [재고] = useState([10,11,12])
-
   let navigate = useNavigate();
   let [load, setLoad] = useState();
   let [clickCount, setClickCount] = useState(0)
   let [noData, setNoData] = useState(false)
+
+
+  //장점1. 성공/실패/로딩중 쉽게 파악 가능함 ex)result.data, 장점2. 틈만나면 refatch해줌, 
+  //장점3. 실패 시 retry해줌, 장점4. state공유 안해도 됨
+  //장점4. 결과 캐싱 가능(기존의 ajax성공 결과를 미리 보여준 후 ajax를 하여 빠른 느낌을 줌)
+  let result = useQuery('작명', ()=>{
+    return(
+      axios.get('https://codingapple1.github.io/userdata.json').then((a)=>{
+        console.log('요청됨')
+        return a.data
+      })
+    )
+  })
+
 
 
 
@@ -35,11 +63,13 @@ function App() {
           <Navbar.Brand href="#home">ShoeShop</Navbar.Brand>
           <Nav className="me-auto">
             <Nav.Link className='nav-menu' onClick={()=>{ navigate('/') }}>Home</Nav.Link>
-            <Nav.Link className='nav-menu' onClick={()=>{ navigate('/detail') }}>Detail</Nav.Link>
-            <Nav.Link className='nav-menu' onClick={()=>{ navigate('/about') }}>About</Nav.Link>
-            <Nav.Link className='nav-menu' onClick={()=>{ navigate('/cart') }}>장바구니</Nav.Link>
+            <Nav.Link className='nav-menu' onClick={()=>{ navigate('/cart') }}>Cart</Nav.Link>
             <Nav.Link className='nav-menu' onClick={()=>{ navigate(-1) }}>뒤로</Nav.Link>
-      
+          </Nav>
+          <Nav className="ms-auto">
+            { result.isLoading && '로딩중'}
+            { result.error && '에러'}
+            { result.data && result.data.name }
           </Nav>
         </Container>
       </Navbar>
@@ -171,6 +201,9 @@ function NoData(props){
     </div>
   )
 }
+
+
+
 
 
 

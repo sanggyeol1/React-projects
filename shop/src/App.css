@@ -19,6 +19,12 @@
   transition : opacity 0.5s;
 }
 
+.watchedBox{
+  display: flex;
+}
+.watchedContent{
+  display: flex;
+}
 
 
 .main-bg{

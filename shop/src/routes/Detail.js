@@ -25,28 +25,20 @@ function Detail(props){
   //버튼을 누르면 state를 바꾸는 스위치만 조정하는 방식으로 하면 코드가 깔끔해짐!
   let [tab, setTab] = useState(0);
 
-  
 
   useEffect(()=>{
     
-    let 꺼낸거 = localStorage.getItem('watched') 
-    꺼낸거 = JSON.parse(꺼낸거) || []
+    let 꺼낸거 = localStorage.getItem('watched')
+    꺼낸거 = JSON.parse(꺼낸거)
     꺼낸거.push(찾은상품.id)
+    //set자료형은 중복을 허용하지 않는 array(중복을 삭제함)
+    꺼낸거 = new Set(꺼낸거)
+    꺼낸거 = Array.from(꺼낸거)
     localStorage.setItem('watched', JSON.stringify(꺼낸거))
-  },[])
-  // let watchedBox = localStorage.setItem('watched', JSON.stringify( [] ))
-  //   localStorage.setItem('watched', JSON.stringify(찾은상품))
-  //   let 꺼낸거 = localStorage.getItem('watched')
-  //   꺼낸거 = JSON.parse(꺼낸거)
-  //   watchedBox.push(꺼낸거)
-  //   localStorage.setItem('watched', JSON.stringify(꺼낸거))
-
-
-
-
-
-
     
+  },[])
+
+
   useEffect(()=>{
     // let a = setTimeout(()=>{ setAlert(false) }, 2000)
     if(isNaN(입력값)==true){
@@ -62,6 +54,22 @@ function Detail(props){
   }, [입력값, count, alert])
 
 
+  
+  let 꺼낸거 = localStorage.getItem('watched')
+  꺼낸거 = JSON.parse(꺼낸거)
+  let shoeImage = [
+    "https://codingapple1.github.io/shop/shoes1.jpg",
+    "https://codingapple1.github.io/shop/shoes2.jpg",
+    "https://codingapple1.github.io/shop/shoes3.jpg",
+    "https://codingapple1.github.io/shop/shoes4.jpg",
+    "https://codingapple1.github.io/shop/shoes5.jpg",
+    "https://codingapple1.github.io/shop/shoes6.jpg",
+    "https://codingapple1.github.io/shop/shoes7.jpg",
+    "https://codingapple1.github.io/shop/shoes8.jpg",
+    "https://codingapple1.github.io/shop/shoes9.jpg",
+  ]
+  
+  
     return(
 <div className="container">
     {
@@ -96,6 +104,24 @@ function Detail(props){
     </div>
   </div>
 
+
+  <div className='alert alert-warning'>
+  <div>최근 본 상품</div>
+    <div className='watchedBox'>
+    {
+      꺼낸거.map(function(a,i){
+        return(
+          <div>
+            <div>{props.shoes[a].title}</div>
+            <img src={shoeImage[a]} width="40%"></img>
+          </div>
+        )
+      })
+    }
+    </div>
+  </div>
+    
+      
   
 
   <ul className="nav nav-tabs">
@@ -115,11 +141,18 @@ function Detail(props){
   }
   
 
-   
 </div> 
   )
 }
 
+
+function Warn(props){
+  return(
+    <div className='alert alert-warning'>
+      숫자만 입력 가능합니다.
+    </div>
+  )
+}
 
 function Tab(props){
 
@@ -132,15 +165,7 @@ function Tab(props){
 
 
 
-function Warn(props){
-  return(
-    <div className='alert alert-warning'>
-      숫자만 입력 가능합니다.
-    </div>
-  )
-}
-
-
+//로컬스토리지 내의 정보를 수정할 수 없다. -> 꺼내서 수정하고 다시 넣어야 함
  
 
 

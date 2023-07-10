@@ -10,7 +10,13 @@ import Cart from './routes/Cart.js'
 import axios from 'axios'
 import { useQuery } from "react-query"
 
+//성능개선
+//batch기능 : state1변경() state2변경() state3변경() > 마지막에만 재랜더링
+//useTransition() : 스태이트 변경으로 인한 성능 저하를 완화시켜줌
+//ex) let [isPending, startTransition] = useTransition() 이후 성능 저하의 주요 원인인 state변경함수를 startTransition으로 감싸 주면 성능저하가 완화됨
+//원리 : startTransition으로 감싼 코드의 실행을 약간 늦춰주고 우선 input을 변화시킴(그냥 돌려막기임)
 
+//PWA를 통해서 앱인 척 할 수 있음 1. 설치 마케팅 비용 적음 2. 아날로그 유저들 배려 3. html css js만으로 앱까지 4. 푸시알림, 센서 등등
 
 function App() {
 

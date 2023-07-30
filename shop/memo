@@ -1,0 +1,425 @@
+[
+작업폴더 shift +우클릭 후 npx create-react-app 프로젝트명 적으면 프로젝트 생성됨
+
+UI를 복사붙여넣기할수 있는 react bootstrap
+get start 하고 설치하란대로 하면 됨 -> npm install react-bootstrap bootstrap(맨날 바뀌긴 함)
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+  integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
+  crossorigin="anonymous"
+/> + 이 코드를 index.html head태그 내에 복붙하면 됨
+
+버튼 뿐 아니라 동적인 ui등등도 복붙 가능
+import {Button,Container,Nav,Navbar} from 'react-bootstrap' 이런식으로 한번에import 가능함
+
+
+background-size: cover;
+background-position: center;
+을 통해서 창의 크기가 변해도 상대적 위치는 변하지 않음
+
+
+import bg from './img/bg.png'
+
+<div className='main-bg' style={{backgroundImage : 'url('+bg+')'}}></div>을 통해서html에서 img를 넣을 수 있다. 다만 외부에 호스팅해둔 이미지라면 이미지 링크만 넣으면 됨
+
+react bootstrap에 colmn이나 grid 검색하면 3등분진열코드 등등 나와있음
+
+public폴더 : 리액트 사이트발행 전에 압축할때 src파일은 형태와 이름이 변하지만 public폴더는 변하지 않는다. 그래서 이미지들을 여기에 몰아넣는것이 좋다. public폴더 안의 이미지 사용할땐 그냥 /이미지경로 사용하면 된다.
+다만 주의할 점은 사이트발행할때 주소에 따라서 오류가 나는 경우가 있는데 
+<img src={process.env.PUBLIC_URL + '/logo1.png'}/> 이런식으로 쓰는걸 권장한다.
+
+
+변수 또는 컴포넌트가 길어지면 파일을 따로 만들고   export {data} import {data} from './data.js' 로 사용 가능함
+
+
+import 뭐시기 from './뭐시기' -> 나의 폴더경로
+import 뭐시기 from '뭐시기' -> 라이브러리 임포트
+]
+
+
+
+
+
+[
+라우터 : 페이지 나누기
+리엑트는 single page application으로 index.html하나만 사용한다.
+페이지 나누는 법(리액트)
+1. 컴포넌트 만들어서 상세페이지 내용 채움
+2. 누가/detail접속하면 그 컴포넌트 보여줌
+
+(react router-dom라이브러리 쓰면 라우팅 쉽게 만들 수 있음)
+npm install react-router-dom@6 하고 index.js파일로 가서
+<App/>을 <BrowserRouter></BrowserRouter> 로 감싸면 됨
+
+<Routes>
+    <Route path="/detail" element={<div>상세페이지임</div>}/>
+    <Route path="/cart" element={<div>장바구니 페이지임</div>}/>/>
+</Routes>
+이런식으로 어떤 경로로 들어가느냐에 따라 보여주는 html을 달리 할 수 있음 "/"는 메인페이지를 뜻함 이떼 중괄호 안에 main페이지의 모든 요소를 담아서 라우팅을 할 수 있다.
+
+<Link to="/">홈</Link>
+<Link to="/detail">상세페이지</Link> 이런식으로 버튼을 만들어서 이동할수도 있다.
+
+페이지를 나누어서 라우팅을 할때 pages라는 폴더를 하나 만들어서 다 밀어넣는게 좋다.
+]
+
+
+
+
+
+
+[
+기능몇가지
+1. useNavigate() : 페이지 이동 도와줌
+let navigate = useNavigate() 라고 선언하고
+어디든 onClick={()=>{ navigate('/')}} 붙여서 쓰면 됨
+navigate(1)은 앞으로가기 navigate(-1)은 뒤로가기 버튼과 동일, 2적으면 2칸이동함
+
+2. 404페이지
+<Route path="*" element={ <div>없는페이지에요</div> }/> 를 통해서 만들수 있음
+
+3. Nested Route (Outlet) : 동적인UI도 만들수있음
+<Route path="/about" element={ <Detail/> <Outlet/> }> /about으로 접속시 <Detail/> 보여줌
+    <Route path="member" element={ <div>멤버임</div> }/> /about/member 접속시 Outlet 위치에보여줌
+    <Route path="location" element={ <div>위치임</div> }/> /about/location 접속시 Outlet 위치에보여줌
+</Route> 
+
+
+URL파라미터 : 0번째신발, 1번째신발, 2번째신발등등의 여러개의 detail페이지를 만들고싶을때 사용
+<Route path="/detail/:id" element={ <Detail shoes={shoes}/> }/>
+이렇게 짜면 detail/12 으로 접속해도 똑같이 detail페이지를 보여준다.
+
+유저가 URL파라미터에 입력한거 가져오려면 let {id} = useParams() 하고 id변수 쓰면 됨
+(참고)
+path 작명시 url 파라미터는 몇번이고 사용가능합니다. detail/:어쩌구/:저쩌구 이런식
+]
+
+
+
+
+
+
+[
+중요!!
+object 배열에서 id가 1인 object찾는법 :
+
+let obj = [
+    { id: 0, name: 'Max', age: 23 },
+    { id: 1, name: 'John', age: 20 },
+    { id: 2, name: 'Caley', age: 18 }
+]
+let result = obj.find((e) => e.id == 1) (리턴중괄호는 동시생략가능)
+console.log(result) 하면
+{ id: 1, name: 'John', age: 20 } 출력
+let result = state.findIndex((e) => e.id == 2)
+console.log(result) 하면
+2 출력
+
+
+
+object 배열에서 이름순으로 정렬하기 버튼
+<button onClick={()=>{
+    let copy = [...shoes]
+
+    copy.sort((a, b)=>{
+        if(a.title > b.title) return 1;
+        if(a.title < b.title) return -1;
+        return 0;
+    })
+    setShoes(copy)
+}}>정렬</button>
+]
+
+
+
+
+
+
+
+
+[
+styled component : className넣고 css파일 안가도 js에서 모든걸 해결 가능한 라이브러리, 스타일이 다른 js파일로 오염되지 않음, 페이지 로딩시간 단축
+
+(참고)css파일 작명할때 App.module.css라고 작명하면 이 파일은 App.js에만 종속이 된다.
+
+방법
+1. npm install styled-components 로 설치
+2. import styled from 'styled-components' 로 불러옴
+3. let Btn = styled.button`
+    background : ${ props => props.bg };
+    color : ${props => props.bg == 'blue' ? 'white' : 'balck'};이런식으로 간단한 코드도 작성 가능
+    padding : 10px;
+`
+3. <Btn bg="yellow">버튼</Btn>
+하면 노란색 버튼이 나옴
+
+또는 
+let Box = styled.div`
+    padding : 10px;
+    background : grey;
+`
+<Box>박스</Box>
+하면 회색 박스가 나옴
+
+단점
+1. js파일 매우 복잡해짐
+2. 중복스타일은 import할텐데 css와 다를바 없다.
+3. css협업시 숙련도이슈
+]
+
+
+
+
+
+
+[
+컴포넌트의 Lifecycle와 useEffect
+
+Lifecycle : 
+페이지에 장착되기도 하고(mount) (갈고리 담)
+업데이트==재랜더링 도 되고(update) (갈고리 담)
+필요없으면 제거되고(unmount) (갈고리 담)
+
+mount, update, unmount될때 실행될 코드를 갈고리를 담
+
+예전엔
+class Detail2 extends React.Component{
+    componentDidMount(){
+        마운트시 실행코드
+    }
+    componentDidUpdate(){
+        업데이트시 실행코드
+    }
+    componentWillUnmount(){
+        언마운트시 실행코드
+    }
+}이런식으로 갈고리를 달았는데 요즘엔
+
+function Detail(){
+    useEffect(()=>{
+        마운트, 업데이트 시 실행코드
+    })
+}
+근데 useEffect바깥에 코드짜도 똑같이 작동하는데?
+useEffect쓰는 이유 : 실행시점이 약간 다름. useEffect바깥에 있으면 윗줄에있는것부터 실행되는데 useEffect는 html랜더링 이후에 동작함 
+그래서 오래걸리는 코드들을 안에 넣어서 먼저html을 보여주는게 좋음 (반응 즉각즉각)
+예를들면 :
+1. 어려운 연산
+2. 서버에서 데이터 가져오는것
+3. 타이머 장착
+
+sideEffect : 핵심기능이 아닌 부가기능
+useEffect : 부가기능을 넣는 바구니
+
+useEffect(()=>{
+    setTimeout(()=>{ setWarn(false) },2000)
+}, [count])
+[count]를 넣음으로써 재랜더링될때마다 무작정 실행되던 코드를 mount 시, count라는 state가 변할때만 실행되는 기능으로 바꿀 수 있다.
+그래서 []만 넣으면 처음 mount될때 1회만 실행되게 제한을 걸 수 있다.
+
+useEffect 안에 return()=>{ useEffect동작 전에 실행되는 코드 }
+예를들면 타이머가 이미 있는 상황에서 기존 타이머를 제거해달라는 clean UP function을 쓰면 됨 == clearTimeout
+
+또는 서버에 데이터 요청하는 코드가 2초 걸린다고 가정했을 때 2초 사이에 재 랜더링이 되어버리면 2초걸리는 코드를 또 실행하기 때문에 기존의 요청을 없애버리는 clean up function이 필요한것이다.
+
+참고 : clean up function은 mount시 실행이 안되고 unmount시 실행된다.
+
+결론 :  useEffect는  마운트, 재랜더링 시 동작,
+useEffect내의 return()=>{}는  재랜더링, 언마운트시 동작
+재랜더링에서 겹쳤다면 return()=>{}가 먼저 실행
+
+useEffect(()=>{ }) 1. 재랜더링마다 코드실행하고싶으면
+useEffect(()=>{ },[]) 2. 마운트시 1회 코드실행하고싶으면
+useEffect(()=>{ },[count]) 3. 특정 state변경시에만 실행하려면
+
+useEffect(()=>{ 
+    return()=>{}
+},[]) 
+4. 언마운트시 1회 코드실행하고싶으면, useEffect전에 clean up function 실행하고 싶으면
+
+]
+
+
+
+[
+리액트에서 서버와 통신하려면 ajax
+서버 : 부탁하면 진짜로 들어주는 프로그램
+네이버웹툰서버 : 웹툰 요청하면 웹툰 보여주는 프로그램
+페이지 위에 주소창이 get요청할수 있는 공간임 여기다가 주소를 입력하면 get요청과 동시에 새로고침이 됨. -> ajax를 사용하면 새로고침을 사용하지 않고 get/post요청이 가능함
+
+ajax쓰려면 
+1. XMLHttpRequest
+2. fetch()
+
+3. axios 요청 (json을 array나 object로 변환하지 않아도 된다는 편리성 보유)
+터미널에 npm install axios, import axios from 'axios' 그 후
+axios.get('https://codingapple1.github.io/shop/data2.json')
+.then((data)=>{ console.log(data) }) 하면 데이터 출력됨
+.catch((err)=>{ console.log(err) }) 하면 axios실패시 에러출력
+
+...result.data 하면 result.data의 대괄호가 벗겨짐
+
+로딩중 UI 짜는법 : axios요청 전후로 loading중 UI 띄우기, 숨기기 코드 작성하면 됨
+근데 then뿐만 아니라catch에도 짜서 오류가 났을때도 로딩창을 숨겨주어야 함
+
+
+axios POST요청 : 서버로 데이터 전송하는 POST요청
+axios.post('/post요청을 받을 주소', {name : 'kim'})
+이런 방식으로 서버에 데이터를 보내는 것임
+
+
+동시에 ajax요청하는법 : 
+Promise.all([ axios.get('/url1'), axios.get('/url2')])
+.then(()=>{
+    두개 다 성공했을때 실행코드
+})
+
+원래는 서버와 문자만 주고받을 수 있는데 oject와 배열을 받을 수 있는 이유 :
+"{"name" : "kim"}" 이런방식으로 문자인 척을 해서 주고받을 수 있음 이러한 형태를 json이라고 함
+그래서 js의 기본문법인 fetch를 사용할 때는 
+fetch('url')
+.then(result=>result.json()) 이런식으로 json을 array나 object로 변환코드 필요
+.then(data => {})
+
+]
+
+
+
+
+[
+    삼항연산자가 아닌 일반 if조건문을 쓰고싶으면
+    function TabContent(props){
+    if(props.tab == 0){
+        return <div>내용0</div>
+    }
+    if(props.tab == 1){
+        return <div>내용1</div>
+    }
+    if(props.tab == 2){
+        return <div>내용2</div>
+    }
+}이런식으로 컴포넌트화해서 써야 한다.
+
+
+function TabContent(props){
+    return [<div>내용0</div>, <div>내용1</div>, <div>내용2</div>][props.tab]
+}
+센스좋으면 이렇게짜도 됨
+]
+
+
+
+
+
+
+[
+전환에니메이션 주는 법 : 부착하면 에니메이션 나오는 className하나 만들고 원할 때 부착하면 됨
+
+1. 애니메이션 동작 전 className 만들기
+2. 애니메이션 동작 후 className 만들기
+3. className에 transition 속성 추가
+4. 원할때 2번 className추가
+
+.start{
+  opacity: 0; 안보임
+}
+.end{
+  opacity: 1; 잘보임
+  transition: opacity 0.5s;
+}
+
+
+구현이 엄청나게 복잡함
+let [fade, setfade] = useState('')
+
+useEffect(()=>{
+    setTimeout(()=>{setfade('end')}, 10) //0.01초있다가붙임
+    return()=>{setfade('')} //end를 떼었다가
+},[props.tab])
+
+return (<div className={'start' +fade }>
+    { [<div>내용0</div>, <div>내용1</div>, <div>내용2</div>][props.tab]} 
+    </div>)
+
+왜 이렇게 복잡하게 짜냐?
+리액트의 automatic batching 기능:
+
+state 변경함수가 여러개 있으면 변경 될때마다 재랜더링 하는것이 아니라
+마지막 state변경함수를 실행한 후에 한번만 재랜더링함
+그래서 떼고 붙이는 동작이 한번에 이루어지기 때문에 setTimeout을 통해서 시간차를 두어 줘야 한다.
+
+]
+
+
+
+
+[
+리액트같은 single page Application의 단점 : 컴포넌트 간의 state공유가 어렵다.
+자식의 자식 컴포넌트에게 state를 전송해주고싶으면 props를 두번써야하는 번거로움이 있음 두번정도는 안복잡한데 10개정도 되면 너무 복잡함
+
+해결방법 : 
+1. context Api : 단점이많아서 잘 안쓰고 몰라도 ok
+
+2. redux :
+redux store.js 를 만들고 그곳에 state를 몰아 넣은 후 컴포넌트들이 빼서 씀
+
+설치 : npm install @reduxjs/toolkit react-redux
+셋팅 
+1. store.js생성 후 
+import { configureStore } from '@reduxjs/toolkit'
+
+export default configureStore({
+  reducer: { }
+})  복붙후 
+2. index.js 가서 import store from './store.js'하고
+<Provider store={store}>로 App 감싸
+
+
+
+
+redux state변경하는법 : 
+1.state수정함수 만들기
+2. 컴포넌트가 디스패치로 store.js에 수정함수 실행해달라고 메세지 보냄
+
+dispatch(changeName('kim'))
+
+하면 store.js에 action.payload로 "kim"이 들어간다.
+]
+
+
+
+[
+새로고침하면 state가 초기값으로 돌아간다.
+-> 서버를 이용하면됨
+-> 차선책으로 localStorage가 있음
+
+로컬스토리지 특징
+1. key : value 형태로 저장이 가능함
+2. 문자만 저장가능함 (5MB)까지
+3. 사이트 재접속해도 남아있음(브라우저 청소하면 삭제됨)
+(세션스토리지는 날아감)
+
+사용법 
+localStorage.setItem('data','20') 치면 저장
+localStorage.getItem('data') 하면 '20'출력
+localStorage.getItem('data') 하면 삭제
+
+데이터를 수정하는 문법은 없고 꺼내서 수정하고 다시 넣으면 된다.
+
+array/object 저장하려면 : JSON으로 바꾸면 된다.
+let obj = {name : 'kim'}
+
+localStorage.setItem('data', JSON.stringify(obj)) 하면 저장됨
+근데 json은 let 꺼낸거 = localStorage.getItem('data') 로꺼내도 json이기 때문에 JSON.parse(꺼낸거) 해줘야 함
+
+
+Set을 활용하여 배열에서 중복 제거
+ useEffect(()=>{
+        let 꺼낸거 = localStorage.getItem('watched')
+        꺼낸거 = JSON.parse(꺼낸거)
+        꺼낸거.push(찾은상품.id)
+        꺼낸거 = [...new Set(꺼낸거)]
+        localStorage.setItem('watched', JSON.stringify(꺼낸거))
+    },[]) 이렇게 최근본 상품의 index번호를 모아볼 수 있음
+]

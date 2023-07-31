@@ -1,181 +1,142 @@
-import React from 'react';
+import {Button,Container,Nav,Navbar,Row,Col} from 'react-bootstrap';
 import './App.css';
-import { useState } from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import { Button, Navbar, Container, Nav, Row, Col } from 'react-bootstrap';
-import bg from './img/에어포스1.jpg'
-import {data} from './data.js';
-import { Routes, Route, Link, useNavigate, Outlet } from 'react-router-dom'
-import Detail from './routes/Detail.js'
-import axios from 'axios'
+import { lazy,useEffect, useState } from 'react';
+import { data } from './data.js'
+import { Detail } from './pages/detail';
+import { Cart } from './pages/Cart'
+import {Routes, Route, Link, useNavigate, Outlet} from 'react-router-dom'
+import axios from 'axios';
+import { useQuery } from 'react-query';
 
-let Context1 = createContext()//state보관함의 역할임
+
+
 
 function App() {
 
-  let [shoes, setShoes] = useState(data);
-  let [재고] = useState([10,11,12])
+  useEffect(()=>{
+    let 꺼낸거 = localStorage.getItem('watched')
+    if(!꺼낸거){
+      localStorage.setItem('watched', JSON.stringify([]))
+    }
+    
+  },[])
 
-  let navigate = useNavigate();
-  let [load, setLoad] = useState();
-  let [clickCount, setClickCount] = useState(0)
-  let [noData, setNoData] = useState(false)
+
+  let [shoes, setShoes] = useState(data)
+  let [click, setClick] = useState(0)
+  let [loading, setLoading] = useState(false)
+  let navigate = useNavigate()
+  
+  let result = useQuery('작명', ()=>
+    axios.get('https://codingapple1.github.io/userdata.json')
+    .then((a)=>{
+      console.log('요청됨')
+      return a.data
+    })
+    .catch((err)=>{console.log(err)}),
+    { staleTime : 2000 }
+  )
 
 
   return (
     <div className="App">
 
-      <Navbar bg="" variant="" className="nav-bar">
+    
+
+      <Navbar className='nav-bar' data-bs-theme="dark">
         <Container>
-          <Navbar.Brand href="#home">ShoeShop</Navbar.Brand>
+          <Navbar.Brand href="#home">상결신발</Navbar.Brand>
           <Nav className="me-auto">
-            <Nav.Link className='nav-menu' onClick={()=>{ navigate('/') }}>Home</Nav.Link>
-            <Nav.Link className='nav-menu' onClick={()=>{ navigate('/detail/0') }}>Detail</Nav.Link>
-            <Nav.Link className='nav-menu' onClick={()=>{ navigate('/event') }}>Event</Nav.Link>
-            <Nav.Link className='nav-menu' onClick={()=>{ navigate('/about') }}>About</Nav.Link>
-            <Nav.Link className='nav-menu' onClick={()=>{ navigate(-1) }}>뒤로</Nav.Link>
-            <Nav.Link className='nav-menu' onClick={()=>{ navigate(1) }}>앞으로</Nav.Link>
+            <Nav.Link onClick={()=>{ navigate('/')}}>Home</Nav.Link>
+            <Nav.Link onClick={()=>{ navigate('/Cart')}}>Cart</Nav.Link>
+          </Nav>
+          <Nav className='ms-auto'>
+            { result.isLoading && '로딩중'}
+            { result.error && '에러'}
+            { result.data && result.data.name}
+            
           </Nav>
         </Container>
       </Navbar>
 
+     
+
       <Routes>
         <Route path="/" element={
-         <> 
-          <div className="main-bg" style={{backgroundImage : 'url('+ bg +')'}}></div>
+        <>
+          <div className='main-bg'></div>
           <Container>
           <Row>
             {
-              shoes.map(function(a, i){
+              shoes.map((a, i)=>{
                 return(
-                  <Card shoes={shoes} i={i}></Card>
+                  <Card shoes={shoes[i]} i={i}/>
                 )
               })
             }
           </Row>
-          
-        </Container> 
-        {
-          load == true ? <Loading/> : null
-        }
-        {
-          noData == true ? <NoData/> : null
-        }
-        <button onClick={()=>{
-          setLoad(true)
-          if(clickCount == 0){
-            axios.get('https://codingapple1.github.io/shop/data2.json')
-            .then((결과)=>{
-              let copy = [...shoes, ...결과.data]
-              setShoes(copy);
-              setLoad(false)
-              setClickCount(clickCount+1)
-          })
-            //get요청 실패 시
-            .catch(()=>{
-            console.log('실패함 ㅅㄱ')
-            })
-          }else if(clickCount == 1){
-            axios.get('https://codingapple1.github.io/shop/data3.json')
-            .then((결과)=>{
-              let copy = [...shoes, ...결과.data]
-              setShoes(copy);
-              setLoad(false)
-              setClickCount(clickCount+1)
-          })
-            //get요청 실패 시
-            .catch(()=>{
-            console.log('실패함 ㅅㄱ')
-            })
-          }else{
-            setLoad(false)
-            setNoData(true)
+          </Container>
+          {
+            loading == true ? 
+            <div className="alert alert-warning">
+              로딩중입니다.
+            </div> : null
           }
-          
-          
-
-        }}> 버튼 </button>
+          <button onClick={()=>{
+            if(click == 0){
+              setLoading(true)
+              axios.get('https://codingapple1.github.io/shop/data2.json')
+              .then((result)=>{ 
+                let copy = [...shoes, ...result.data]
+                setShoes(copy)
+                setLoading(false)
+              })
+              .catch((err)=>{
+                console.log(err)
+              })
+              setClick(click+1)
+            }else if(click == 1){
+              setLoading(true)
+              axios.get('https://codingapple1.github.io/shop/data3.json')
+              .then((result)=>{ 
+                let copy = [...shoes, ...result.data]
+                setShoes(copy)
+                setLoading(false)
+              })
+              .catch((err)=>{
+                console.log(err)
+              })
+              setClick(click+1)
+            }else{
+              alert('데이터 더 없음')
+            }
+          }}>버튼</button>
         </>
-        }/>
+      }/>
+      
+        <Route path="/detail/:id" element={ <Detail shoes={shoes}/> }/>
 
-{/* url파라미터 */}
-        <Route path="*" element={<div>없는 페이지에요</div>} />
-        <Route path="/detail/:id" element={<Detail shoes={shoes}></Detail>} />
-        
+        <Route path="/cart" element={ <Cart/> }/>
 
-        <Route path="/event" element={<Event></Event>}>
-          <Route path="one" element={<div>첫 주문시 양배추즙 서비스</div>}></Route>
-          <Route path="two" element={<div>생일기념 쿠폰받기</div>}></Route>
-        </Route>
-
-        <Route path="/about" element={<About/>}>
-          <Route path="member" element={<div>멤버임</div>}></Route>
-          <Route path="location" element={<div>위치정보임</div>}></Route>
-        </Route>
-
+        <Route path="*" element={ <div>없는페이지에요</div> }/>
       </Routes>
     </div>
   );
 }
 
-function Event(){
-  return(
-    <div>
-      <h4>오늘의 이벤트</h4>
-      <Outlet></Outlet>
-    </div>
-  )
-}
-
-function About(){
-  return(
-
-
-    <div>
-      <h4>회사정보임</h4>
-      <Outlet></Outlet>
-    </div>
-  )
-}
-
 function Card(props){
-  let shoeImage = [
-    "https://codingapple1.github.io/shop/shoes1.jpg",
-    "https://codingapple1.github.io/shop/shoes2.jpg",
-    "https://codingapple1.github.io/shop/shoes3.jpg",
-    "https://codingapple1.github.io/shop/shoes4.jpg",
-    "https://codingapple1.github.io/shop/shoes5.jpg",
-    "https://codingapple1.github.io/shop/shoes6.jpg",
-    "https://codingapple1.github.io/shop/shoes7.jpg",
-    "https://codingapple1.github.io/shop/shoes8.jpg",
-    "https://codingapple1.github.io/shop/shoes9.jpg",
-  ]
 
+  let navigate = useNavigate()
   return(
-    <Col sm>
-      <img src={shoeImage[props.i]} width="80%"></img>
-      <h4>{props.shoes[props.i].title}</h4>
-      <p>{props.shoes[props.i].content}</p>
-      <p>{props.shoes[props.i].price}</p>
-    </Col>
+          <Col>
+          
+            <img src={"https://codingapple1.github.io/shop/shoes"+(props.shoes.id+1)+".jpg"} width="300px"  onClick={()=>{ navigate('/detail/'+props.shoes.id)}}/>
+          <div style={{textAlign : 'left'}}>
+            <h4 >{props.shoes.title}</h4>
+            <p >{props.shoes.price}</p>
+          </div>
+          </Col>
   )
 }
-
-function Loading(props){
-  return(
-    <div className='alert alert-warning'>
-      Loading ...
-    </div>
-  )
-}
-function NoData(props){
-  return(
-    <div className='alert alert-warning'>
-      There Is No Data
-    </div>
-  )
-}
-
-
 
 export default App;

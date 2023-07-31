@@ -16,6 +16,7 @@ function Detail(props){
     let 찾은상품 = props.shoes.find((e)=>{return e.id == id})
     let [content, setContent] = useState(0)
 
+
     let dispatch = useDispatch()
 
     useEffect(()=>{
@@ -33,10 +34,11 @@ function Detail(props){
         꺼낸거 = [...new Set(꺼낸거)]
         localStorage.setItem('watched', JSON.stringify(꺼낸거))
     },[])
-        
-
-
     
+
+   
+    let 꺼낸거 = localStorage.getItem('watched')
+        꺼낸거 = JSON.parse(꺼낸거)
 
 
 
@@ -54,33 +56,52 @@ function Detail(props){
                     </div> : null
                 }
                 <div className="row">
+
                 <div className="col-md-6">
                     <img src={"https://codingapple1.github.io/shop/shoes"+(찾은상품.id+1)+".jpg"} width="100%" />
                 </div>
-                <div className="col-md-6">
-                    <h4 className="pt-5">{찾은상품.title}</h4>
-                    <p>{찾은상품.content}</p>
-                    <p>{찾은상품.price}</p>
-                    {
-                        alert == true ? 
-                        <div className="alert alert-warning">
-                            숫자만 쓰시오
-                        </div> : null
-                    }
-                    {/* <input onChange={(e)=>{
-                        setContent(e.target.value) 
-                        if(isNaN(content)){
-                            setAlert(true)
-                        }else{
-                            setAlert(false)
+
+                
+                <div>
+                    <div className="col-md-6" >
+                        <h4>{찾은상품.title}</h4>
+                        <p>{찾은상품.content}</p>
+                        <p>{찾은상품.price}</p>
+                        {
+                            alert == true ? 
+                            <div className="alert alert-warning">
+                                숫자만 쓰시오
+                            </div> : null
                         }
-                    }}/><br/><br/> */}
-                    <button className="btn btn-danger" onClick={()=>{
-                        dispatch(addItem(찾은상품))
-                    }}>주문하기</button> 
+                        {/* <input onChange={(e)=>{
+                            setContent(e.target.value) 
+                            if(isNaN(content)){
+                                setAlert(true)
+                            }else{
+                                setAlert(false)
+                            }
+                        }}/><br/><br/> */}
+                        <button className="btn btn-danger" onClick={()=>{
+                            dispatch(addItem(찾은상품))
+                        }}>주문하기</button> 
+                    </div>
+                    
                     
                 </div>
                 </div>
+
+
+                <br></br>
+                <div style={{ width : '100%', border : '1px solid black'}}>
+                    최근 본 상품{
+                        꺼낸거.map((a, i)=>{
+                            return(
+                                <div>{props.shoes[a].title}</div>
+                            )
+                        })
+                    }
+                </div>
+                <br></br>
 
                 <Nav variant="tabs"  defaultActiveKey="link0">
                     <Nav.Item>

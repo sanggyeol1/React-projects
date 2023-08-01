@@ -110,7 +110,9 @@ function App() {
             }else{
               alert('데이터 더 없음')
             }
-          }}>버튼</button>
+          }}>더보기</button>
+
+
         </>
       }/>
       

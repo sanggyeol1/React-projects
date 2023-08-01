@@ -17,6 +17,7 @@ function Detail(props){
     let [content, setContent] = useState(0)
 
 
+
     let dispatch = useDispatch()
 
     useEffect(()=>{
@@ -49,6 +50,7 @@ function Detail(props){
     }else{
         return(
             <div className={"container start " + fade}>
+                
                 {
                     warn == true ? 
                     <div className="alert alert-warning">

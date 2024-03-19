@@ -4,7 +4,7 @@ import { lazy,useEffect, useState } from 'react';
 import { data } from './data.js'
 import { Detail } from './pages/detail';
 import { Cart } from './pages/Cart'
-import {Routes, Route, Link, useNavigate, Outlet} from 'react-router-dom'
+import { Routes, Route, Link, useNavigate, Outlet } from 'react-router-dom'
 import axios from 'axios';
 import { useQuery } from 'react-query';
 
@@ -40,8 +40,6 @@ function App() {
 
   return (
     <div className="App">
-
-    
 
       <Navbar className='nav-bar' data-bs-theme="dark">
         <Container>
@@ -130,6 +128,7 @@ function Card(props){
 
   let navigate = useNavigate()
   return(
+      
           <Col>
           
             <img src={"https://codingapple1.github.io/shop/shoes"+(props.shoes.id+1)+".jpg"} width="300px"  onClick={()=>{ navigate('/detail/'+props.shoes.id)}}/>
@@ -138,6 +137,7 @@ function Card(props){
             <p >{props.shoes.price}</p>
           </div>
           </Col>
+          
   )
 }
 

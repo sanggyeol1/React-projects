@@ -1,5 +1,6 @@
 import './App.css';
 import { useState } from 'react';
+import Modal from './modal';
 
 function App() {
 
@@ -23,15 +24,9 @@ function App() {
         글제목.map((a, i)=>{
           return(
             <div className='list' key={i}>
-              <h4 onClick={()=>{
-                if(modal == true){
-                  setModal(false)
-                }else{
-                  setModal(true)
-                }
-
-                setTitle(i)
-              }}>{글제목[i]} 
+              <h4 onClick={()=>{ 
+                if(modal == true){ setModal(false) }
+                else{ setModal(true) } setTitle(i) }}>{글제목[i]} 
 
               <span onClick={(e)=>{
                 e.stopPropagation();
@@ -77,40 +72,20 @@ function App() {
           copy3.unshift(now.getMonth()+1+'월 '+ now.getDate()+'일')
           setDate(copy3)
         
-        
-        
         }
       }}>작성</button>
-
 
 
       {
         modal == true ? <Modal 글제목={글제목} title={title}/> : null 
       }
-  
-      
-      
-      
     </div>
   );
 }
 
 
 
-function Modal(props){
- 
-      return(
-        <div className='modal'>
-          <h3>{ props.글제목[props.title] }</h3>
-          <p>날짜</p>
-          <p>상세내용</p>
-          <button>글수정</button>
-        </div>
-      )
-    
-  
-      
-}
+
 
 export default App;
 

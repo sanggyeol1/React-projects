@@ -373,6 +373,7 @@ export default configureStore({
   reducer: { }
 })  복붙후 
 2. index.js 가서 import store from './store.js'하고
+import { Provider } from "react-redux";하고
 <Provider store={store}>로 App 감싸
 
 

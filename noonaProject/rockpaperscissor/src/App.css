@@ -1,15 +1,19 @@
-.main{
+.main {
   display: flex;
   justify-content: center;
 }
 
-.box{
+.main .icon {
+  font-size: 40px;
+  padding: 10px;
+}
+
+.box {
   width: 500px;
-  border : 5px solid black;
   text-align: center;
   margin: 5px;
 }
 
-.item-img{
+.item-img {
   width: 400px;
 }

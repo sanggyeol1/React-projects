@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import './App.css';
-import Box from './component/Box';
+
 
 
 
@@ -29,6 +29,7 @@ function App() {
       <div>{counter}</div>
       <div>state : {counter2}</div>
       <button onClick={()=>{ increase() }}>클릭!</button>
+      
     </>
   );
 }

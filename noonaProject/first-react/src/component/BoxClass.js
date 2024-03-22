@@ -1,6 +1,10 @@
 import React, { Component } from 'react'
 
 export default class BoxClass extends Component {
+  componentWillUnmount(){
+    console.log("componentWillUnmount")
+}
+
   render() {
     return (
         

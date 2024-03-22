@@ -1,0 +1,51 @@
+body{
+  background-image: url('https://search.pstatic.net/sunny/?src=http%3A%2F%2Fdown.humoruniv.com%2Fhwiparambbs%2Fdata%2Fpdswait%2Fa_9707842939_a9031f58ad6a61904ad12179e4d09656d5e28d4e.jpg&type=a340');
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.main-box{
+  width: 600px;
+  height: 300px;
+  background: rgba(105, 105, 105, 0.8);
+  text-align: center;
+  border-radius: 10px;
+  border : 1px solid white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+}
+
+.text-box h1{
+  color: rgb(120, 255, 47);
+}
+
+.text-box h2{
+  color: rgb(47, 193, 255);
+}
+
+.button-box{
+  background: black;
+  height: 100px;
+  width: 600px;
+  display: flex;
+  align-items: center;
+  justify-content:center;
+  border-radius: 100px;
+  margin-top : 30px;
+}
+
+.button-box button{
+  padding: 10px;
+  background-color: yellow;
+  border: 1px solid yellow;
+  border-radius: 6px;
+  margin : 10px;
+  cursor : pointer
+}
+
+

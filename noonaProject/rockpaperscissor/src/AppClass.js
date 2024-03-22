@@ -21,6 +21,7 @@ const choice = {
 }
 
 
+
 export default class AppClass extends Component {
 
     //이걸로 state생성
@@ -55,37 +56,38 @@ export default class AppClass extends Component {
         })
     }
 
+    play = (userChoice) => {
+        this.setUserSelect(choice[userChoice])
+        let computerChoice = this.randomChioce()
+        this.setComputerSelect(computerChoice)
+        this.setResult(this.judgement(choice[userChoice], computerChoice))
+        this.setComputerResult(this.judgement(computerChoice, choice[userChoice]))
+    }
+    
+    judgement = (user, computer) => {
+    
+        console.log(user, computer)
+        if (user.name == computer.name) {
+            return "Tie"
+        } else if ((user.name == "Rock" && computer.name == "Scissors") ||
+            (user.name == "Scissors" && computer.name == "Paper") ||
+            (user.name == "Paper" && computer.name == "Rock")) {
+            return "Win"
+        }
+        else {
+            return "Lose"
+        }
+    }
+    
+    randomChioce = () => {
+        let itemArray = Object.keys(choice)//객체의 키값만 뽑아서 array로 변환
+        let randomItem = Math.floor(Math.random() * itemArray.length)
+        let final = itemArray[randomItem]
+        return choice[final]
+    } 
+
+
     render() {
-
-        const play = (userChoice) => {
-            this.setUserSelect(choice[userChoice])
-            let computerChoice = randomChioce()
-            this.setComputerSelect(computerChoice)
-            this.setResult(judgement(choice[userChoice], computerChoice))
-            this.setComputerResult(judgement(computerChoice, choice[userChoice]))
-        }
-
-        const judgement = (user, computer) => {
-
-            console.log(user, computer)
-            if (user.name == computer.name) {
-                return "Tie"
-            } else if ((user.name == "Rock" && computer.name == "Scissors") ||
-                (user.name == "Scissors" && computer.name == "Paper") ||
-                (user.name == "Paper" && computer.name == "Rock")) {
-                return "Win"
-            }
-            else {
-                return "Lose"
-            }
-        }
-
-        const randomChioce = () => {
-            let itemArray = Object.keys(choice)//객체의 키값만 뽑아서 array로 변환
-            let randomItem = Math.floor(Math.random() * itemArray.length)
-            let final = itemArray[randomItem]
-            return choice[final]
-        }
 
         return (
             <>
@@ -94,9 +96,9 @@ export default class AppClass extends Component {
                     <BoxClass title="Computer" item={this.state.computerSelect} result={this.state.computerResult} />
                 </div>
                 <div className='main'>
-                    <FontAwesomeIcon className='icon' icon={faHandScissors} onClick={() => { play("scissors") }} />
-                    <FontAwesomeIcon className='icon' icon={faHandBackFist} onClick={() => { play("rock") }} />
-                    <FontAwesomeIcon className='icon' icon={faHand} onClick={() => { play("paper") }} />
+                    <FontAwesomeIcon className='icon' icon={faHandScissors} onClick={() => { this.play("scissors") }} />
+                    <FontAwesomeIcon className='icon' icon={faHandBackFist} onClick={() => { this.play("rock") }} />
+                    <FontAwesomeIcon className='icon' icon={faHand} onClick={() => { this.play("paper") }} />
                 </div>
             </>
         );

@@ -6,15 +6,20 @@ const ButtonBox = (props) => {
   return (
     <>
       <div className='button-box'>
-        <Button variant="warning" onClick={() => { props.getCurrentLocation() }}>
-          현재위치
+        <Button variant={props.city == 'currentLocation'? 'warning':"outline-warning"} onClick={() => { 
+          props.getCurrentLocation()
+          props.setCity('currentLocation')  
+        }}>
+          CurrentLocation
         </Button>
 
-        
+
         {
           props.cities.map((item, index) => {
             return (
-              <Button variant="warning" key={index} onClick={() => { props.setCity(item) }}>
+              <Button variant={props.city == item ? "warning" : "outline-warning"} key={index} onClick={() => {
+                props.setCity(item)
+              }}>
                 {item}
               </Button>
             )

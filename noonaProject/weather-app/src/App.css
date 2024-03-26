@@ -51,12 +51,7 @@ body{
 }
 
 .button-box button{
-  padding: 10px;
-  background-color: yellow;
-  border: 1px solid yellow;
-  border-radius: 6px;
   margin : 10px;
-  cursor: pointer;
 }
 
 

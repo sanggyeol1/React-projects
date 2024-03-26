@@ -1,0 +1,19 @@
+React Router
+
+설치 : 
+1. npm install react-router-dom
+2. index.js 에 import { BrowserRouter } from 'react-router-dom';
+3. <App/>을 <BrowserRouter></BrowserRouter>로 감싼다.
+4. App.js에 import { Routes, Route, Link } from "react-router-dom"
+
+페이지 왔다갔다 하는 방식
+1. Link 태그
+2. useNavigate()함수 설정 후 onClick으로 사용
+
+
+RESTful Routes
+Http verb : get post put delete
+url 파라미터 : /subjects/:id --> 이 값은 가변적인 값이다.
+import { useParams } from 'react-router-dom' 를 통해 url의 파라미터값을 읽어올 수 있다!.
+
+import { useSearchParams } from 'react-router-dom'를 통해서 query값을 가져올 수도 있다.

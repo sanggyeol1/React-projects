@@ -1,0 +1,107 @@
+.login-button{
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  margin: 17px;
+}
+
+.login-button a{
+  text-decoration: none;
+  color: black;
+}
+
+.login-button div{
+  margin: 3px;
+}
+
+.main-logo{
+  display: flex;
+  justify-content: center;
+}
+
+.menu-list{
+  display: flex;
+}
+
+.menu-list div{
+  padding: 10px;
+}
+
+.menu-area {
+  display: flex;
+  justify-content: space-between
+}
+
+.search-box {
+  display: flex;
+  align-items: center;
+  margin: 5px;
+  border-bottom: 1px solid black;
+}
+
+.search-box input{
+  border: none;
+  margin: 5px;
+}
+
+.visibility-hidden{
+  visibility: hidden;
+}
+
+.product-image{
+  width: 100%;
+}
+
+.nav-bar{
+  margin-bottom: 20px;
+}
+
+.conscious-choice{
+  font-size: 0.6rem;
+}
+
+.product-imformation{
+  margin: 5px 0px 10px 0px;
+}
+
+.product-card {
+  transition: transform 0.3s ease; 
+}
+
+.product-card:hover {
+  transform: scale(1.07);
+  cursor: pointer;
+}
+
+.login-box{
+  border: 3px solid black;
+  border-radius: 10px;
+}
+
+.login-box input{
+  padding: 10px;
+  margin-top: 10px;
+  width: 300px;
+  border-radius: 6px;
+  border: 1px solid black;
+}
+
+.center{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.button-end{
+  display: flex;
+  justify-content: end;
+  align-items: center;
+}
+
+.mt-15{
+  margin-top: 15px;
+}
+
+.login-box-content{
+  padding: 40px;
+}
+

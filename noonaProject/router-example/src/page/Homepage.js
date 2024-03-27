@@ -10,6 +10,7 @@ const Homepage = () => {
         <>
             <h1>Homepage</h1>
             <Link to="/about">about페이지로</Link>
+            <Link to="/mypage">마이페이지로</Link>
             <button onClick={()=>{
                 goProductPage()
             }}>팬츠 페이지로</button>

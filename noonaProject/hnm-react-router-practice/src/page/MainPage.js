@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
 import ProductCard from '../component/ProductCard'
 import { Col, Row, Container } from 'react-bootstrap'
+import { useNavigate } from 'react-router-dom'
 
 const MainPage = () => {
+
+  const navigate = useNavigate()
 
   const [productList, setProductList] = useState([])
 
@@ -18,14 +20,18 @@ const MainPage = () => {
     getProducts()
   }, [])
 
+  const showDetail = (id) => {
+    navigate('detail/' + id)
+  }
+
   return (
     <div>
       <Container>
         <Row>
           {
             productList.map((a, i) => (
-              <Col xs={12} md={6} lg={3}>
-                <ProductCard item={a}/>
+              <Col xs={12} md={6} lg={3} onClick={() => { showDetail(a.id) }}>
+                <ProductCard item={a} />
               </Col>
 
             ))

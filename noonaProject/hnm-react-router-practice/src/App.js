@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import './App.css';
 import MainPage from './page/MainPage';
-import DetailPage from './page/DetailPage';
 import NavBar from './component/NavBar';
 import { Route, Routes } from 'react-router-dom';
 import { Container } from 'react-bootstrap';
 import Login from './page/Login';
+import PrivateRoute from './route/PrivateRoute';
 //1. 전체상품페이지, 로그인, 상품상세페이지
 //1-1 네비게이션 바 만들기
 //2. 전체 상품페이지에서는 전체 상품을 볼 수 있다.
@@ -18,21 +18,20 @@ import Login from './page/Login';
 
 function App() {
 
-  let [authenticate, setAuthenticate] = useState(false)
+  let [authenticate, setAuthenticate] = useState(false)//로그인여부
+  const [productList, setProductList] = useState([])
 
-  const PrivateRoute = () =>{
-    return authenticate == true? <DetailPage /> : <Login/>
-  }
-
+  
+  
   return (
     <>
-      <NavBar />
+      <NavBar authenticate={authenticate} setAuthenticate={setAuthenticate}/>
       
 
         <Routes>
-          <Route path="/" element={<MainPage />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/detail/:id" element={<PrivateRoute/>} />
+          <Route path="/" element={<MainPage productList={productList} />} />
+          <Route path="/login" element={<Login setAuthenticate={setAuthenticate}/>} />
+          <Route path="/detail/:id" element={<PrivateRoute authenticate={authenticate}/>} />
         </Routes>
       
     </>

@@ -19,6 +19,7 @@ background-position: center;
 을 통해서 창의 크기가 변해도 상대적 위치는 변하지 않음
 
 
+
 import bg from './img/bg.png'
 
 <div className='main-bg' style={{backgroundImage : 'url('+bg+')'}}></div>을 통해서html에서 img를 넣을 수 있다. 다만 외부에 호스팅해둔 이미지라면 이미지 링크만 넣으면 됨

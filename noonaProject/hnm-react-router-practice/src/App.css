@@ -3,12 +3,9 @@
   justify-content: end;
   align-items: center;
   margin: 17px;
+  cursor: pointer;
 }
 
-.login-button a{
-  text-decoration: none;
-  color: black;
-}
 
 .login-button div{
   margin: 3px;
@@ -17,6 +14,7 @@
 .main-logo{
   display: flex;
   justify-content: center;
+  cursor: pointer;
 }
 
 .menu-list{
@@ -81,7 +79,7 @@
 .login-box input{
   padding: 10px;
   margin-top: 10px;
-  width: 300px;
+  width: 500px;
   border-radius: 6px;
   border: 1px solid black;
 }
@@ -105,3 +103,29 @@
   padding: 40px;
 }
 
+.virtual-block{
+  height: 200px;
+}
+
+.detail-page-box{
+  display: flex;
+  justify-content: center;
+}
+
+.detail-page-explain h3{
+  margin:10px;
+}
+.detail-page-explain p{
+  margin:10px;
+  font-size: 1.3rem;
+  font-weight: 600;
+}
+
+.detail-page-explain div{
+  margin:10px;
+  font-size: 0.8rem;
+}
+
+.add-button{
+  width: 400px;
+}

@@ -2,15 +2,19 @@ import React, { useEffect, useState } from 'react'
 import ProductCard from '../component/ProductCard'
 import { Col, Row, Container } from 'react-bootstrap'
 import { useNavigate } from 'react-router-dom'
+import { useSearchParams } from 'react-router-dom'
 
 const MainPage = () => {
 
   const navigate = useNavigate()
 
   const [productList, setProductList] = useState([])
+  const [query, setQuery] = useSearchParams()
 
   const getProducts = async () => {
-    let url = 'https://my-json-server.typicode.com/sanggyeol1/React.js/products'
+    let searchQuery = query.get('q')||"";
+    console.log(searchQuery)
+    let url = `https://my-json-server.typicode.com/sanggyeol1/React.js/products?q=${searchQuery}`
     let response = await fetch(url)
     let data = await response.json()
     setProductList(data)
@@ -18,7 +22,7 @@ const MainPage = () => {
 
   useEffect(() => {
     getProducts()
-  }, [])
+  }, [query])
 
   const showDetail = (id) => {
     navigate('detail/' + id)

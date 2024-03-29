@@ -3,7 +3,6 @@ import './App.css';
 import MainPage from './page/MainPage';
 import NavBar from './component/NavBar';
 import { Route, Routes } from 'react-router-dom';
-import { Container } from 'react-bootstrap';
 import Login from './page/Login';
 import PrivateRoute from './route/PrivateRoute';
 //1. 전체상품페이지, 로그인, 상품상세페이지
@@ -25,6 +24,7 @@ function App() {
   
   return (
     <>
+      
       <NavBar authenticate={authenticate} setAuthenticate={setAuthenticate}/>
       
 

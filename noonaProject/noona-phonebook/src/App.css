@@ -1,0 +1,20 @@
+.title{
+  text-align: center;
+}
+
+.mt-10{
+  margin-top: 10px;
+}
+
+.mt-20{
+  margin-top: 20px;
+}
+
+.profile-image{
+  
+}
+
+.profile-content{
+  border : 1px solid rgb(164, 162, 162, 0.4);
+  padding: 10px;
+}

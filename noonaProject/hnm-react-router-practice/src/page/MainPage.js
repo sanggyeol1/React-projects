@@ -3,21 +3,22 @@ import ProductCard from '../component/ProductCard'
 import { Col, Row, Container } from 'react-bootstrap'
 import { useNavigate } from 'react-router-dom'
 import { useSearchParams } from 'react-router-dom'
+import { productAction } from "../redux/actions/productAction";
+import { useDispatch, useSelector } from 'react-redux'
 
 const MainPage = () => {
 
   const navigate = useNavigate()
+  const productList = useSelector((state) => state.product.productList)//reducer가 나뉨
 
-  const [productList, setProductList] = useState([])
   const [query, setQuery] = useSearchParams()
+  const dispatch = useDispatch()
+
 
   const getProducts = async () => {
-    let searchQuery = query.get('q')||"";
+    let searchQuery = query.get('q') || "";
     console.log(searchQuery)
-    let url = `https://my-json-server.typicode.com/sanggyeol1/React.js/products?q=${searchQuery}`
-    let response = await fetch(url)
-    let data = await response.json()
-    setProductList(data)
+    dispatch(productAction.getProducts(searchQuery))//미들웨어함수호출
   }
 
   useEffect(() => {
@@ -33,7 +34,7 @@ const MainPage = () => {
       <Container>
         <Row>
           {
-            productList.map((a, i) => (
+            productList?.map((a, i) => (
               <Col xs={12} md={6} lg={3} onClick={() => { showDetail(a.id) }}>
                 <ProductCard item={a} />
               </Col>

@@ -1,12 +1,18 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Container, Button, Form } from 'react-bootstrap'
 import { useNavigate } from 'react-router-dom'
+import { UseDispatch, useDispatch } from 'react-redux'
+import { authenticateAction } from '../redux/actions/authenticateAction'
 
 const Login = ({ setAuthenticate }) => {
 
+    const [id, setId] = useState('')
+    const [password, setPassword] = useState([])
+    const dispatch = useDispatch()
+
     const loginUser = (event) =>{
         event.preventDefault();
-        setAuthenticate(true)
+        dispatch(authenticateAction.login(id, password))
         navigate('/')
     }
     const navigate = useNavigate()
@@ -23,11 +29,11 @@ const Login = ({ setAuthenticate }) => {
                             <h3>로그인</h3>
                             <div className='mt-15'>
                                 <div>아이디 입력</div>
-                                <input type="text" placeholder='id' />
+                                <input type="text" placeholder='id' onChange={(e)=>{setId(e.target.value)}}/>
                             </div>
                             <div className='mt-15'>
                                 <div>비밀번호 입력</div>
-                                <input type="password" placeholder='password' />
+                                <input type="password" placeholder='password' onChange={(e)=>{setPassword(e.target.value)}} />
                             </div>
                             <div className='button-end mt-15'>
                                 <div>

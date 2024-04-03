@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react'
 import { Container, Row, Col, Dropdown, Button } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
 import { useDispatch,useSelector } from 'react-redux';
-import { detailAction } from "../redux/actions/detailAction";
-
+import { productAction } from "../redux/actions/productAction";
+import { fetchProductDetail } from '../redux/reducers/productSlice';
 
 const DetailPage = () => {
   const [selectedSize, setSelectedSize] = useState()
@@ -13,11 +13,14 @@ const DetailPage = () => {
   const params = useParams();
 
   const getProductDetail = async () => {
-    dispatch(detailAction.getProductDetail(params.id))//미들웨어함수호출
+    dispatch(fetchProductDetail(params.id))//미들웨어함수호출
   }
 
   useEffect(() => {
-    getProductDetail()
+   
+      getProductDetail()
+  
+    
   }, [])
 
   return (
@@ -52,7 +55,7 @@ const DetailPage = () => {
 
           <div className="d-grid gap-2 mt-15">
             <Button variant="outline-danger" size="lg">
-              Block level button
+              구매하기
             </Button>
           </div>
         </Col>

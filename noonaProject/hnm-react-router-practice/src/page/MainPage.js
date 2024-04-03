@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom'
 import { useSearchParams } from 'react-router-dom'
 import { productAction } from "../redux/actions/productAction";
 import { useDispatch, useSelector } from 'react-redux'
+import { fetchProducts } from '../redux/reducers/productSlice'
 
 const MainPage = () => {
 
@@ -18,7 +19,7 @@ const MainPage = () => {
   const getProducts = async () => {
     let searchQuery = query.get('q') || "";
     console.log(searchQuery)
-    dispatch(productAction.getProducts(searchQuery))//미들웨어함수호출
+    dispatch(fetchProducts(searchQuery))//미들웨어함수호출
   }
 
   useEffect(() => {

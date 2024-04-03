@@ -5,10 +5,15 @@ import { faUser } from '@fortawesome/free-regular-svg-icons'
 import { Link, useNavigate } from 'react-router-dom'
 import { Col, Row, Container } from 'react-bootstrap'
 import SideBar from './SideBar'
-const NavBar = ({ authenticate, setAuthenticate }) => {
+import { useDispatch, useSelector } from 'react-redux'
+import { authenticateAction } from "../redux/actions/authenticateAction";
+
+const NavBar = () => {
   
+  const authenticate = useSelector((state) => state.auth.authenticate)//reducer가 나뉨
   let [sideBar, setSideBar] = useState(false)
   const menuList = ['여성', 'Divided', '남성', '신상아/유아', '아동', 'H&M HOME', 'Sale', '지속가능성']
+  const dispatch = useDispatch()
 
   const navigate = useNavigate()
   const goToLogin = () => {
@@ -18,7 +23,7 @@ const NavBar = ({ authenticate, setAuthenticate }) => {
     navigate('/')
   }
   const logOut = () => {
-    setAuthenticate(false)
+    dispatch(authenticateAction.logOut())
     navigate('/')
   }
   const search = (event) => {

@@ -17,21 +17,19 @@ import PrivateRoute from './route/PrivateRoute';
 
 function App() {
 
-  let [authenticate, setAuthenticate] = useState(false)//로그인여부
-  const [productList, setProductList] = useState([])
+  
+  
 
   
   
   return (
     <>
       
-      <NavBar authenticate={authenticate} setAuthenticate={setAuthenticate}/>
-      
-
+      <NavBar/>
         <Routes>
-          <Route path="/" element={<MainPage productList={productList} />} />
-          <Route path="/login" element={<Login setAuthenticate={setAuthenticate}/>} />
-          <Route path="/detail/:id" element={<PrivateRoute authenticate={authenticate}/>} />
+          <Route path="/" element={<MainPage  />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/detail/:id" element={<PrivateRoute />} />
         </Routes>
       
     </>

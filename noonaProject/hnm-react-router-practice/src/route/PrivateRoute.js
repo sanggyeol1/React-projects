@@ -1,13 +1,13 @@
 import React from 'react';
 import DetailPage from '../page/DetailPage'
 import { Navigate } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 
-const PrivateRoute = ({ authenticate }) => {
+const PrivateRoute = () => {
 
-
+    const authenticate = useSelector((state) => state.auth.authenticate)//reducer가 나뉨
     return (
-        authenticate == true ? <DetailPage /> : <Navigate to='/login' />
+        authenticate == true ? <DetailPage /> : <Navigate to="/login"/>
     )
 }
 

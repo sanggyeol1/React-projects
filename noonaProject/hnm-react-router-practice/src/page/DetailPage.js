@@ -1,20 +1,19 @@
 import React, { useEffect, useState } from 'react'
 import { Container, Row, Col, Dropdown, Button } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
+import { useDispatch,useSelector } from 'react-redux';
+import { detailAction } from "../redux/actions/detailAction";
 
 
 const DetailPage = () => {
-
-  const [product, setProduct] = useState(null)
   const [selectedSize, setSelectedSize] = useState()
-
+  
+  const product = useSelector((state) => state.product.productDetail)
+  const dispatch = useDispatch()
   const params = useParams();
+
   const getProductDetail = async () => {
-    let url = `https://my-json-server.typicode.com/sanggyeol1/React.js/products/${params.id}`
-    let response = await fetch(url)
-    let data = await response.json()
-    console.log(data)
-    setProduct(data)
+    dispatch(detailAction.getProductDetail(params.id))//미들웨어함수호출
   }
 
   useEffect(() => {

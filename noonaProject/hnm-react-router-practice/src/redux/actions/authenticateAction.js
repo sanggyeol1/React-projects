@@ -5,4 +5,13 @@ function login(id, password) {
     }
 }
 
-export const authenticateAction = { login }
+function logOut() {
+    return (dispatch, getState) => {
+        //async 함수 하고 나서
+        dispatch({ type: "LOGOUT_SUCCESS" })//디스패치 부름
+    }
+}
+
+
+
+export const authenticateAction = { login, logOut }

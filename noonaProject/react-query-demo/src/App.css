@@ -1,0 +1,17 @@
+nav{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #eee;
+}
+
+nav a{
+  padding: 20px;
+  text-decoration: none;
+  color: black;
+}
+
+.main-container{
+  text-align: center;
+}
+

@@ -2,7 +2,7 @@ import React from 'react'
 
 const HomePage = () => {
   return (
-    <div>HomePage123</div>
+    <div>HomePage12345</div>
   )
 }
 

@@ -6,6 +6,8 @@ import MoviePage from './pages/Movies/MoviePage';
 import NotFoundPage from './pages/NotFoundPage/NotFoundPage';
 import { Routes, Route } from "react-router-dom"
 
+
+
 //홈페이지 /
 //영화 전체 보여주는 페이지(서치) /movies
 //영화 디테일 페이지 /movies/:id

@@ -8,20 +8,9 @@
   text-decoration: none;
 }
 
-.custom-form-control {
-  background: rgb(44, 44, 44) !important;
-  border: none !important ;
-  color: white !important;
+.form-input-box{
+  background-color: rgb(47, 47, 47);
+  color: white;
+  border-radius: 6px;
 }
-
-.custom-form-control::placeholder {
-  color: rgba(255, 255, 255, 0.492) !important;
-}
-
-.custom-form-control:focus {
-  outline: 0px solid rgba(158, 31, 31, 0.537) !important;
-  border-color: rgba(158, 31, 31, 0.537) !important;
-  box-shadow: 0 0 0 0.15rem rgba(158, 31, 31, 0.537) !important;
-}
-
 

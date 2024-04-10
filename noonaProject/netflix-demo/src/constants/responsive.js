@@ -3,12 +3,12 @@
 export const responsive = {
     desktop: {
         breakpoint: { max: 3000, min: 1330 },
-        items: 6,
+        items: 5,
         slidesToSlide: 3 // optional, default to 1.
     },
     tablet1: {
         breakpoint: { max: 1330, min: 1100 },
-        items: 5,
+        items: 4,
         slidesToSlide: 2 // optional, default to 1.
     },
     tablet2: {
@@ -22,13 +22,13 @@ export const responsive = {
         slidesToSlide: 1 // optional, default to 1.
     },
     tablet4: {
-        breakpoint: { max: 650, min: 490 },
+        breakpoint: { max: 650, min: 550 },
         items: 2,
         slidesToSlide: 1 // optional, default to 1.
     },
     mobile: {
-        breakpoint: { max: 490, min: 0 },
-        items: 1,
-        slidesToSlide: 1 // optional, default to 1.
+        breakpoint: { max: 550, min: 0 },
+        items: 2,
+        slidesToSlide: 1, // optional, default to 1.
     }
 };

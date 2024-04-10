@@ -36,7 +36,7 @@ const MovieCard = ({ movie }) => {
                     <div>
                         <Badge bg="warning" text="dark"> Rating </Badge>
                         {movie.vote_average.toFixed(1)}</div>
-                    <div>{movie.adult ? <Badge pill bg="danger">
+                    <div>{movie.adult==true ? <Badge pill bg="danger">
                         19
                     </Badge> : <Badge pill bg="warning" text="dark">
                         All

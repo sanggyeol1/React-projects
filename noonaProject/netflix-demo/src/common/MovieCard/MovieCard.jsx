@@ -5,7 +5,10 @@ import { useMovieGenreQuery } from '../../pages/hooks/useMovieGenre';
 
 
 const MovieCard = ({ movie }) => {
-
+    const movieGenre = () =>{
+        if(!movie.genre_ids) return []
+        return movie.genre_ids
+    } 
     const { data: genreData } = useMovieGenreQuery()
 
     const showGenre = (genreIdList) => {
@@ -29,13 +32,13 @@ const MovieCard = ({ movie }) => {
             <div className='overlay'>
                 <div className='card-content'>
                     <h3>{movie.title}</h3>
-                    {showGenre(movie.genre_ids).map((id) => (
+                    {showGenre(movieGenre()).map((id) => (
 
                         <Badge className='badge' bg="danger">{id}</Badge>
                     ))}
                     <div>
                         <Badge bg="warning" text="dark"> Rating </Badge>
-                        {movie.vote_average.toFixed(1)}</div>
+                        {movie.vote_average?.toFixed(1)}</div>
                     <div>{movie.adult==true ? <Badge pill bg="danger">
                         19
                     </Badge> : <Badge pill bg="warning" text="dark">

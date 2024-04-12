@@ -23,8 +23,6 @@ const MoviePage = () => {
 
   const { data, isLoading, isError, error } = useSearchMovieQuery({ keyword, page })
 
-  
-
   const handlePageClick = ({ selected }) => {
     setPage(selected + 1)
   }

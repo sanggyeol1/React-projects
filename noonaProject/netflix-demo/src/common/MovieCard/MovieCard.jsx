@@ -2,13 +2,16 @@ import React from 'react'
 import Badge from 'react-bootstrap/Badge';
 import "./MovieCard.style.css"
 import { useMovieGenreQuery } from '../../pages/hooks/useMovieGenre';
-
+import { useNavigate } from 'react-router-dom';
 
 const MovieCard = ({ movie }) => {
-    const movieGenre = () =>{
-        if(!movie.genre_ids) return []
+
+    const navigate = useNavigate()
+
+    const movieGenre = () => {
+        if (!movie.genre_ids) return []
         return movie.genre_ids
-    } 
+    }
     const { data: genreData } = useMovieGenreQuery()
 
     const showGenre = (genreIdList) => {
@@ -22,11 +25,13 @@ const MovieCard = ({ movie }) => {
     }
 
     return (
-        <div style={{
-            backgroundImage: "url(" +
-                'https://media.themoviedb.org/t/p/w220_and_h330_face' +
-                `${movie.poster_path}` + ")"
-        }}
+        <div
+            onClick={() => { navigate(`movies/${movie.id}`) }}
+            style={{
+                backgroundImage: "url(" +
+                    'https://media.themoviedb.org/t/p/w220_and_h330_face' +
+                    `${movie.poster_path}` + ")"
+            }}
             className='movie-card'
         >
             <div className='overlay'>
@@ -39,7 +44,7 @@ const MovieCard = ({ movie }) => {
                     <div>
                         <Badge bg="warning" text="dark"> Rating </Badge>
                         {movie.vote_average?.toFixed(1)}</div>
-                    <div>{movie.adult==true ? <Badge pill bg="danger">
+                    <div>{movie.adult == true ? <Badge pill bg="danger">
                         19
                     </Badge> : <Badge pill bg="warning" text="dark">
                         All

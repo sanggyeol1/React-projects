@@ -1,0 +1,14 @@
+.review-box{
+    border: 1px solid red;
+    border-radius: 10px;
+    margin: 10px;
+}
+
+.review-box *{
+    padding: 15px;
+}
+
+.toggle-button{
+    cursor: pointer;
+    white-space: nowrap;
+}

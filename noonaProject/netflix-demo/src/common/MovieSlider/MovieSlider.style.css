@@ -1,8 +1,10 @@
 .carousel-container{
     overflow: hidden;
     height: 440px;
-    
 }
+
+
+
 
 /* 모바일 */
 /* @media (max-width:550px){

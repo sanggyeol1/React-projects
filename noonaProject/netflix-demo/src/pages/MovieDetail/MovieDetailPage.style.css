@@ -3,3 +3,25 @@
     background-repeat: no-repeat;
     background-size: contain
 }
+
+.mt-25{
+    margin-top: 25px;
+}
+
+.detail-banner{
+    height : 24vh;
+    background-position: left;
+    width: 100%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    opacity: 0.4;
+}
+
+.detail-banner:before{
+    content:'';
+    background:linear-gradient(to top, black, transparent);
+    position: absolute;
+    left:0;
+    height: 24vh;
+    width: 100%;
+}

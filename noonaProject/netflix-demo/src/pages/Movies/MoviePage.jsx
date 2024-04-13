@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useSearchMovieQuery } from '../hooks/useSearchMovie'
-import { useSearchParams } from 'react-router-dom'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 import Alert from 'react-bootstrap/Alert';
 import Spinner from 'react-bootstrap/Spinner';
 import './MoviePage.style.css'
@@ -13,6 +13,7 @@ import ReactPaginate from 'react-paginate';
 //1. navbar에서 클릭해서 온 경우 => popularMovie보여줌
 //2. keyword입력해서 온 경우  => keyword관련 영화 보여줌
 const MoviePage = () => {
+  const navigate=useNavigate()
   const [page, setPage] = useState(1)
   const [query, setQuery] = useSearchParams()
   const keyword = query.get("q");
@@ -50,7 +51,9 @@ const MoviePage = () => {
             <h3>{keyword ? `'${keyword}' 에 대한 검색 결과 : ${data?.total_results}건` : "Popular Movies"}</h3>
             {data?.results.map((movie, index) => (
               <Col key={index} lg={4} md={6} xs={12}>
-                <MovieCard movie={movie} />
+                <div onClick={()=>{navigate(`${movie.id}`)}} className='mb-20'>
+                <MovieCard movie={movie}/>
+                </div>
               </Col>
             ))}
           </Row>

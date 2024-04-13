@@ -54,7 +54,7 @@ const MovieDetialPage = () => {
 
           </Col>
           <Col lg={6}>
-            <h3>{data?.title}</h3>
+            
             <div>
               {
 
@@ -63,6 +63,7 @@ const MovieDetialPage = () => {
                 ))
               }
             </div>
+            <h3>{data?.title}</h3>
             <div>인기도 : <Badge bg="warning" text="dark">{data?.popularity}</Badge></div>
             <div>별점 : <Badge bg="warning" text="dark">{data?.vote_average}</Badge></div>
             <div>투표 수 : <Badge bg="warning" text="dark">{data?.vote_count}</Badge></div>

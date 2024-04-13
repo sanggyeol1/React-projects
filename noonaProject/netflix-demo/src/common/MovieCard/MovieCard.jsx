@@ -4,10 +4,11 @@ import "./MovieCard.style.css"
 import { useMovieGenreQuery } from '../../pages/hooks/useMovieGenre';
 import { useNavigate } from 'react-router-dom';
 
-const MovieCard = ({ movie }) => {
+const MovieCard = ({ movie, index }) => {
 
     const navigate = useNavigate()
 
+    
     const movieGenre = () => {
         if (!movie.genre_ids) return []
         return movie.genre_ids
@@ -26,6 +27,7 @@ const MovieCard = ({ movie }) => {
 
     return (
         <div
+            key={index}
             onClick={() => { navigate(`movies/${movie.id}`) }}
             style={{
                 backgroundImage: "url(" +
@@ -37,9 +39,9 @@ const MovieCard = ({ movie }) => {
             <div className='overlay'>
                 <div className='card-content'>
                     <h3>{movie.title}</h3>
-                    {showGenre(movieGenre()).map((id) => (
+                    {showGenre(movieGenre()).map((id, index) => (
 
-                        <Badge className='badge' bg="danger">{id}</Badge>
+                        <Badge key={index} className='badge' bg="danger">{id}</Badge>
                     ))}
                     <div>
                         <Badge bg="warning" text="dark"> Rating </Badge>

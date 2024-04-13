@@ -23,13 +23,12 @@ const MovieReview = ({ id }) => {
 
     return (
         <div>
-            <h2>Reviews</h2>
             <div>
                 {data?.map((review, index) => (
                     <div key={index} className='review-box'>
-                        <h3>{review?.author}</h3>
+                        <h4>{review?.author}</h4>
                         <div>
-                            {showMore[index] ? review?.content : `${review?.content.substring(0, 400)} . . .`}
+                            {showMore[index] ? review?.content : `${review?.content.substring(0, 300)} . . .`}
                             <span className='toggle-button' onClick={() => toggleShowMore(index)}>
                             {showMore[index] ? '접기' : '더보기'}
                         </span>

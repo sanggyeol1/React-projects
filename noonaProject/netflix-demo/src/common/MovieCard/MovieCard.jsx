@@ -29,7 +29,7 @@ const MovieCard = ({ movie }) => {
             onClick={() => { navigate(`movies/${movie.id}`) }}
             style={{
                 backgroundImage: "url(" +
-                    'https://media.themoviedb.org/t/p/w220_and_h330_face' +
+                    'https://image.tmdb.org/t/p/original' +
                     `${movie.poster_path}` + ")"
             }}
             className='movie-card'

@@ -1,26 +1,22 @@
 import React from 'react'
-import { usePokemonDetailQuery } from '../../hooks/usePokemonDetail'
-import { usePokemonListQuery } from '../../hooks/usePokemonList'
-import PokemonImage from '../PokemonImage/PokemonImage'
+import { usePokemonCardQuery } from '../../hooks/usePokemonCard'
+import './PokemonCard.style.css'
+import { useNavigate } from 'react-router-dom'
 
-const PokemonCard = () => {
-    const { isLoading, data, isError, error, refetch } = usePokemonListQuery()
+const PokemonCard = ({pokemon, index}) => {
+    const url = pokemon.url
+    const navigate = useNavigate()
+    const { isLoading, data, isError, error} = usePokemonCardQuery(url)
 
-    console.log("data?", data, isLoading)
-    console.log("Error?", isError, error)
+    console.log("data?", data)
 
     return (
-        <div>
-            {
-                data?.results.map((pokemon) => (
-                    <div>
-                        <div>{pokemon.name}</div>
-                        <PokemonImage/>
-                    </div>
-                ))
-            }
 
+        <div className='pokemon-card' onClick={()=>{navigate(`/detail/${data.id}`)}} key={index}>
+            <div>{pokemon.name}</div>
+            <img src={data?.sprites.front_default}/>
         </div>
+
     )
 }
 

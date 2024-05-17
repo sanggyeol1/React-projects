@@ -24,9 +24,9 @@ const MovieTrailer = ({ show, handleClose, id }) => {
             <Modal show={show} onHide={handleClose} className="custom-modal-width">
                 <Modal.Body >
                     <YouTube 
-                        videoId={data[0].key}  // Video ID from YouTube
-                        id={data[0].id}  // Element ID
-                        className="youtube"               // defaults -> ''
+                        videoId={data[0]?.key}  
+                        id={data[0]?.id} 
+                        className="youtube"            
                         iframeClassName="youtube-iframe"
                     />
 

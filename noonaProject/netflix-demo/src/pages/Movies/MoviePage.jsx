@@ -95,7 +95,9 @@ const sortByNewReleasedDate = () => {
             <h3 className='mt-20 mb-20'>{keyword ? `'${keyword}' 에 대한 검색 결과 : ${data?.total_results}건` : "Popular Movies"}</h3>
             {moviesList?.map((movie, index) => (
               <Col key={index} lg={4} xs={6} >
-                <div onClick={() => { navigate(`${movie.id}`) }} className='mb-20'>
+                <div 
+                // onClick={() => { navigate(`${movie.id}`) }} 
+                className='mb-20'>
                   <MovieCard movie={movie} index={index} />
                 </div>
               </Col>

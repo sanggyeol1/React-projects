@@ -3,11 +3,14 @@ import Badge from 'react-bootstrap/Badge';
 import "./MovieCard.style.css"
 import { useMovieGenreQuery } from '../../pages/hooks/useMovieGenre';
 import { useNavigate } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 
 const MovieCard = ({ movie, index }) => {
 
     const navigate = useNavigate()
-
+    const [query, setQuery] = useSearchParams()
+    const keyword = query.get("q");
+   
     
     const movieGenre = () => {
         if (!movie.genre_ids) return []
@@ -28,7 +31,7 @@ const MovieCard = ({ movie, index }) => {
     return (
         <div
             key={index}
-            onClick={() => { navigate(`movies/${movie.id}`) }}
+            onClick={() => { keyword == null ? navigate(`/movies/${movie.id}`):navigate(`${movie.id}`) }}
             style={{
                 backgroundImage: "url(" +
                     'https://image.tmdb.org/t/p/original' +
